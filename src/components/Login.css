@@ -1,0 +1,9 @@
+.papper-shadow{
+    /* --Paper-shadow: none !important */
+    box-shadow:none !important;
+}
+
+.signup-btn{
+    background-color: oklch(70.5% 0.213 47.604) !important;
+    color: #fff !important;
+}
