@@ -1,7 +1,14 @@
 import React from "react";
 
-import { Navigation, Pagination, Scrollbar, A11y, Autoplay,} from "swiper/modules";
+import {
+  Navigation,
+  Pagination,
+  Scrollbar,
+  A11y,
+  Autoplay,
+} from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
+import Button from "@mui/material/Button";
 
 // Import Swiper styles
 import "swiper/css";
@@ -11,56 +18,60 @@ import "swiper/css/scrollbar";
 
 // import images
 
-import DealImg1 from "../assets/images/Deal-img1.jpg"
-import DealImg2 from "../assets/images/Deal-img2.jpg"
-import DealImg3 from "../assets/images/Deal-img3.jpg"
-import DealImg4 from "../assets/images/Deal-img4.jpg"
-import DealImg5 from "../assets/images/Deal-img5.jpg"
+import DealImg1 from "../assets/images/Deal-img1.jpg";
+import DealImg2 from "../assets/images/Deal-img2.jpg";
+import DealImg3 from "../assets/images/Deal-img3.jpg";
+import DealImg4 from "../assets/images/Deal-img4.jpg";
+import DealImg5 from "../assets/images/Deal-img5.jpg";
 
 export default function Deal() {
+  const slides = [
+    {
+      id: 1,
+      image: DealImg1,
+      title: "Deals on Food",
+      subtitle: "Where does it come from",
+    },
 
-    const slides = [
-        {
-          id: 1,
-          image: DealImg1,
-          title: "Deals on Food",
-          subtitle: "Where does it come from",
-        },
-    
-        {
-          id: 2,
-          image: DealImg2,
-          title: "Deals on Food",
-          subtitle: "Where does it come from",
-        },
-    
-        {
-          id: 3,
-          image: DealImg3,
-          title: "Deals on Food",
-          subtitle: "Where does it come from",
-        },
-    
-        {
-          id: 4,
-          image: DealImg4,
-          title: "Deals on Food",
-          subtitle: "Where does it come from",
-        },
-    
-        {
-          id: 5,
-          image: DealImg5,
-          title: "Deals on Food",
-          subtitle: "Where does it come from",
-        },
-      ];
+    {
+      id: 2,
+      image: DealImg2,
+      title: "Deals on Food",
+      subtitle: "Where does it come from",
+    },
 
-    return(
-        <div className="w-full">
-            <h2>Deal of the day</h2>
+    {
+      id: 3,
+      image: DealImg3,
+      title: "Deals on Food",
+      subtitle: "Where does it come from",
+    },
 
-            <Swiper
+    {
+      id: 4,
+      image: DealImg4,
+      title: "Deals on Food",
+      subtitle: "Where does it come from",
+    },
+
+    {
+      id: 5,
+      image: DealImg5,
+      title: "Deals on Food",
+      subtitle: "Where does it come from",
+    },
+  ];
+
+  return (
+    <div className="w-full">
+      <div className="flex flex-wrap justify-between items-center">
+        <h2 className=" text-left  text-2xl font-bold text-black mb-8">
+          Deal of the day
+        </h2>
+        <h5 className="text-green-800">See more details</h5>
+      </div>
+
+      <Swiper
         // install Swiper modules
         modules={[Navigation, Pagination, Scrollbar, A11y, Autoplay]}
         spaceBetween={24}
@@ -86,17 +97,19 @@ export default function Deal() {
                 src={slide.image}
                 alt="img1"
               />
-              <div className="pt-5 ">
+              <div className="pt-5 pb-3 deal-cont">
                 <h2 className="text-2xl text-left font-semibold  text-orange-500">
                   {slide.title}
                 </h2>
                 <h5>{slide.subtitle}</h5>
+                <button className="">
+                  Book Now
+                </button>
               </div>
             </div>
           </SwiperSlide>
         ))}
       </Swiper>
-
-        </div>
-    )
+    </div>
+  );
 }
