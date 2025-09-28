@@ -1,4 +1,8 @@
-import React from "react";
+ import React from "react";
+ import { useState, useEffect } from "react";
+
+ 
+
 
 import {
   Navigation,
@@ -7,8 +11,10 @@ import {
   A11y,
   Autoplay,
 } from "swiper/modules";
+import { EffectFade } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import Button from "@mui/material/Button";
+import "./Deal.css"
 
 // Import Swiper styles
 import "swiper/css";
@@ -16,66 +22,36 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 
-// import images
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000"
 
-import DealImg1 from "../assets/images/Deal-img1.jpg";
-import DealImg2 from "../assets/images/Deal-img2.jpg";
-import DealImg3 from "../assets/images/Deal-img3.jpg";
-import DealImg4 from "../assets/images/Deal-img4.jpg";
-import DealImg5 from "../assets/images/Deal-img5.jpg";
 
-export default function Deal() {
-  const slides = [
-    {
-      id: 1,
-      image: DealImg1,
-      title: "Deals on Food",
-      subtitle: "Where does it come from",
-    },
 
-    {
-      id: 2,
-      image: DealImg2,
-      title: "Deals on Food",
-      subtitle: "Where does it come from",
-    },
+export default function Deal({heading, subheading, slides}) {
+  
 
-    {
-      id: 3,
-      image: DealImg3,
-      title: "Deals on Food",
-      subtitle: "Where does it come from",
-    },
+  const [deal, setDeal] = useState([]);
 
-    {
-      id: 4,
-      image: DealImg4,
-      title: "Deals on Food",
-      subtitle: "Where does it come from",
-    },
-
-    {
-      id: 5,
-      image: DealImg5,
-      title: "Deals on Food",
-      subtitle: "Where does it come from",
-    },
-  ];
+    useEffect(() => {
+        fetch(`${API_URL}/api/deal`)
+        .then((res) => res.json())
+        .then((data) => setDeal(data))
+        .catch((err) => console.error("error fetching deal", err));
+    },[])
 
   return (
     <div className="w-full">
       <div className="flex flex-wrap justify-between items-center">
         <h2 className=" text-left  text-2xl font-bold text-black mb-8">
-          Deal of the day
+          {heading}
         </h2>
-        <h5 className="text-green-800">See more details</h5>
+        <h5 className="text-green-800">{subheading}</h5>
       </div>
 
       <Swiper
         // install Swiper modules
-        modules={[Navigation, Pagination, Scrollbar, A11y, Autoplay]}
+        modules={[Navigation, Pagination, Scrollbar, A11y, Autoplay, EffectFade ]}
         spaceBetween={24}
-        slidesPerView={1}
+        slidesPerView={3}
         breakpoints={{
           640: { slidesPerView: 1 },
           768: { slidesPerView: 2 },
@@ -84,24 +60,24 @@ export default function Deal() {
         navigation
         pagination={{ clickable: true }}
         autoplay={{ delay: 3000, disableOnInteraction: false }}
-        loop={true}
+        loop={deal.length > 3}
         speed={800}
         effect="fade"
         style={{ paddingBottom: 40 }} // room for bullets
       >
-        {slides.map((slide) => (
-          <SwiperSlide className="h-inherit">
+        {deal.map((items) => (
+          <SwiperSlide key={items._id} className="h-inherit">
             <div className="rounded-lg bg-white flex flex-wrap justify-center items-start w-full border border-black">
               <img
                 className=" w-full block max-h-[180px] rounded-tl-lg rounded-tr-lg object-cover"
-                src={slide.image}
+                src={`${API_URL}${items.image}`}
                 alt="img1"
               />
               <div className="pt-5 pb-3 deal-cont">
                 <h2 className="text-2xl text-left font-semibold  text-orange-500">
-                  {slide.title}
+                  {items.title}
                 </h2>
-                <h5>{slide.subtitle}</h5>
+                <h5>{items.subtitle}</h5>
                 <button className="">
                   Book Now
                 </button>
